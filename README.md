@@ -1,6 +1,7 @@
 # ohai
 [![Build Status Master](https://travis-ci.org/chef/ohai.svg?branch=master)](https://travis-ci.org/chef/ohai)
 [![Build Status Master](https://ci.appveyor.com/api/projects/status/github/chef/ohai?branch=master&svg=true&passingText=master%20-%20Ok&pendingText=master%20-%20Pending&failingText=master%20-%20Failing)](https://ci.appveyor.com/project/Chef/ohai/branch/master)
+[![Gem Version](https://badge.fury.io/rb/ohai.svg)](https://badge.fury.io/rb/ohai)
 
 
 # DESCRIPTION:
@@ -16,8 +17,8 @@ Chef distributes ohai as a RubyGem. This README is for developers who
 want to modify the Ohai source code. For users who want to write plugins
 for Ohai, see the docs:
 
-* General documentation: http://docs.chef.io/ohai.html
-* Custom plugin documentation: http://docs.chef.io/ohai_custom.html
+* General documentation: https://docs.chef.io/ohai.html
+* Custom plugin documentation: https://docs.chef.io/ohai_custom.html
 
 # DEVELOPMENT:
 
@@ -53,13 +54,11 @@ You can run individual test files by running the rspec executable:
 Ohai has some Rake tasks for doing various things.
 
     rake -T
-    rake clobber_package  # Remove package products
-    rake gem              # Build the gem file ohai-$VERSION.gem
-    rake install          # install the gem locally
-    rake make_spec        # create a gemspec file
-    rake package          # Build all the packages
-    rake repackage        # Force a rebuild of the package files
-    rake spec             # Run specs
+    rake build          # Build the gem file ohai-$VERSION.gem
+    rake install        # install the gem locally
+    rake install:local  # install the gem locally without network access
+    rake release        # Create tag $VERSION, build gem, and push to Rubygems
+    rake spec           # Run RSpec tests
 
     ($VERSION is the current version, from the GemSpec in Rakefile)
 
@@ -67,7 +66,7 @@ Ohai has some Rake tasks for doing various things.
 
 Source:
 
-* http://github.com/chef/ohai/tree/master
+* https://github.com/chef/ohai/tree/master
 
 Issues:
 

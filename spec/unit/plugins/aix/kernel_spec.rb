@@ -1,6 +1,7 @@
 #
 # Author:: Prabhu Das (<prabhu.das@clogeny.com>)
-# Copyright:: Copyright (c) 2013 Opscode, Inc.
+# Author:: Isa Farnik (<isa@chef.io>)
+# Copyright:: Copyright (c) 2013-2015 Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,6 +27,7 @@ describe Ohai::System, "AIX kernel plugin" do
     allow(@plugin).to receive(:shell_out).with("uname -v").and_return(mock_shell_out(0, "6", nil))
     allow(@plugin).to receive(:shell_out).with("uname -p").and_return(mock_shell_out(0, "powerpc", nil))
     allow(@plugin).to receive(:shell_out).with("genkex -d").and_return(mock_shell_out(0, "    Text address     Size     Data address     Size File\nf1000000c0338000    77000 f1000000c0390000    1ec8c /usr/lib/drivers/cluster\n         6390000    20000          63a0000      ba8 /usr/lib/drivers/if_en", nil))
+    allow(@plugin).to receive(:shell_out).with("getconf KERNEL_BITMODE").and_return(mock_shell_out(0, "64", nil))
     @plugin.run
   end
 
@@ -43,6 +45,10 @@ describe Ohai::System, "AIX kernel plugin" do
 
   it "uname -p detects the machine" do
     expect(@plugin[:kernel][:machine]).to eq("powerpc")
+  end
+
+  it "getconf KERNEL_BITMODE detects the kernel's bittiness" do
+    expect(@plugin[:kernel][:bits]).to eq("64")
   end
 
   it "detects the modules" do

@@ -1,44 +1,93 @@
 # Ohai Changelog
 
+## Unreleased
+* [**phreakocious**](https://github.com/phreakocious):
+  - Collect layer 1 Ethernet information per NIC on Linux hosts
+* [pr#672](https://github.com/chef/ohai/pull/672) CPU plugin for Darwin (OS X) now properly reports the number of real CPUs adds "cores" to match the CPU output on Linux
+* [pr#674](https://github.com/chef/ohai/pull/674) CPU plugin for FreeBSD now reports "real" and "core" values to match the CPU output on Linux
+* [pr#654](https://github.com/chef/ohai/pull/654) Improvements to filesystem and wpar detection on AIX
+* [pr#683](https://github.com/chef/ohai/pull/683) Properly detect the init package on older Linux kernels
+* [pr#684](https://github.com/chef/ohai/pull/684) Remove non-functional cucumber tests
+
+## Release 8.8.1
+* [pr#677](https://github.com/chef/ohai/pull/677) Remove dependency on mime-types gem
+* [pr#662](https://github.com/chef/ohai/pull/662) Skip the VMware plugin if DMI data doesn't indicate we're on a VMware system
+
+## Release 8.8.0
+* [**James Flemer, NDP LLC**](https://github.com/jflemer-ndp):
+  - Add detection for RHEV (on Linux guests) to virtualization plugin
+* [**Shahul Khajamohideen**](https://github.com/sh9189):
+  - Fixes Windows :CPU plugin inconsistencies with other platforms: modifies
+  `cpu[:total]` to return total number of logical processors, adds `cpu[:cores]`
+  to return total number of cores.
+* [**clewis**](https://github.com/clewis):
+  - Don't constrain the width of `ps` output.
+* [**George Gensure**](https://github.com/werkt):
+  - Prevents invalid memory access on subsequent failed calls to `proc_state`
+  on sigar by throwing exception on returned invalid PID.
+* [**Hleb Valoshka**](https://github.com/375gnu):
+  - Add support for DragonFly BSD
+* [**Austin Ziegler**](https://github.com/halostatue):
+  - Bump mime-type dependency to 3.0
+* Make collected zfs filesystem properties configurable on solaris2.
+* Add kernel bitness detection for AIX
+* Fix CPU detection on FreeBSD 10.2+, add collection CPU family and model data.
+* Add inode data for filesystems on FreeBSD
+* Detect Virtualbox, VMware, and KVM on Windows guests and speed up Ohai runs
+* Add a plugin for Virtualbox to provide host / guest version information
+* Escape plugin directory path to prevent failures on Windows
+* Detect Microsoft Hyper-V Linux/BSD guests, which were previously detected as VirtualPC guests
+* Detect Microsoft VirtualPC Linux/BSD guests on additional releases of VirtualPC
+* Add KVM, VirtualBox, and Openstack guest detection to BSD platforms and add the node[:virtualization][:systems] syntax
+
+## Release 8.7.0
+* [**Shahul Khajamohideen**](https://github.com/sh9189):
+  - Add total cores to linux cpu plugin
+* Fix behavior when abort called from plug-in (Ohai should exit with error code)
+
 ## Release 8.6.0
 * [**Phil Dibowitz**](https://github.com/jaymzh):
-  Provide a new and improved filesystem plugin for Linux & Mac (filesystem2), to
+  - Provide a new and improved filesystem plugin for Linux & Mac (filesystem2), to
   support CentOS7, multiple virtual filesystems, etc.
+  - Fix Darwin filesystem plugin on newer MacOSX
 * [**Jonathan Amiez**](https://github.com/josqu4red):
-  Linux filesystems plugin report wrong fs-type for logical volumes
+  - Linux filesystems plugin report wrong fs-type for logical volumes
 * [**involucelate**](https://github.com/involucelate)
-  Fix windows 2008 hostname truncation #554
+  - Fix Windows 2008 hostname truncation #554
 * [**Pavel Yudin**](https://github.com/Kasen):
-  Detect Parallels host and guest virtualization
-* [**Phil Dibowitz**](https://github.com/jaymzh):
-  Fix Darwin filesystem plugin on newer MacOSX
+  - Detect Parallels host and guest virtualization
 * [**Claire McQuin**](https://github.com/mcquin):
-  Deprecate Ohai::Config in favor of Ohai::Config.ohai.
-* [**Claire McQuin**](https://github.com/mcquin):
-  Load a configuration file while running as an application.
-* [PR #597](https//github.com/chef/ohai/597):
-  Correct platform, platform\_family and version detection on Cisco's Nexus platforms.
+  - Deprecate Ohai::Config in favor of Ohai::Config.ohai.
+  - Load a configuration file while running as an application.
+* [PR #597](https//github.com/chef/ohai/pull/597):
+  - Correct platform, platform\_family and version detection on Cisco's Nexus platforms.
 * [**cmluciano**](https://github.com/cmluciano):
-  add vmware plugin
+  - add vmware plugin
 * [**Jean Baptiste Favre**](https://github.com/jbfavre):
-  Detect updated docker cgroup format
+  - Detect updated docker cgroup format
 * [**Shahul Khajamohideen**](https://github.com/sh9189):
-  Fix memory plugin output on Solaris
-  Add swap space attributes for Solaris memory plugin
-  Add swap space attributes for AIX
-  Add support for SPARC based processors in Solaris cpu plugin
+  - Fix memory plugin output on Solaris
+  - Add swap space attributes for Solaris memory plugin
+  - Add swap space attributes for AIX
+  - Add support for SPARC based processors in Solaris cpu plugin
+  - Make AIX cpu plugin's output consistent with Solaris cpu plugin
+  - Make AIX, Solaris memory output consistent to Linux
 * [**Sean Horn**](https://github.com/sean-horn):
-  ec2 plugin should handle binary userdata too
+  - ec2 plugin should handle binary userdata too
 * [**Alexey Karpik**](https://github.com/akarpik):
-  Add support for SoftLayer cloud
+  - Add support for SoftLayer cloud
 * [**MichaelSp**](https://github.com/MichaelSp):
-  return correct ipaddress for openvz guests
+  - return correct ipaddress for openvz guests
 * [**Anthony Caiafa**](https://github.com/acaiafa):
-  Only run ifconfig against active interfaces
+  - Only run ifconfig against active interfaces
+* [**Shahul Khajamohideen**](https://github.com/sh9189) and [**Sean Escriva**](https://github.com/webframp):
+  - Windows Memory plugin
+* [**Chris Chambers**](https://github.com/cachamber):
+  - Convert Solaris OHAI CPU detection to kstat from psrinfo
 
 ## Release 8.5.0
 
-* [PR #548](https://github.com/chef/ohai/548):
+* [PR #548](https://github.com/chef/ohai/pull/548):
   Coerce non-UTF8 strings to UTF8 in output to suppress UTF8 encoding exceptions
 * [PR #544](https://github.com/chef/ohai/pull/544)
   add support for Wind River Linux and Cisco's Nexus platforms
@@ -54,14 +103,13 @@
   Removing trailing space and '\r' for windows #474
 * [**Tim Smith**](https://github.com/tas50):
   Ensure Gentoo based Linuxen get IP information
-* [PR #534](https://github.com/chef/ohai/534)
+* [PR #534](https://github.com/chef/ohai/pull/534)
   Ignore OEM logo on Windows
 
 ## Release 8.2.0
 
 * [**Michael Glenney**](https://github.com/Maniacal)
   Remove redundant if statement
-
 * Remove CloudStack support due to GPL licensed library
 
 ## Release 8.1.1
@@ -105,7 +153,6 @@
   block_device rotational key
 * [**Josh Blancett**](https://github.com/jblancett)
   add extra metadata passed in from hints in knife-linode
-
 * Update mime-types dependency
 
 ## Release 8.0.0
@@ -136,7 +183,6 @@
   Look for any number of spaces between the VxID and the value.
 * [**Daniel Searles**](https://github.com/squaresurf):
   Removed *.static.cloud-ips.com and fixed the DNS resolution on Rackspace hosts.
-
 * Update specs to use RSpec 3 syntax
 * Update mixlib-shellout pin to ~> 2.x
 
@@ -194,8 +240,6 @@
   Provide basic memory information for Mac OS X. (OHAI-431)
 * [**Jerry Chen**](https://github.com/jcsalterego):
   Rackspace plugin rescues Errno::ENOENT if xenstor-* utils are not found (OHAI-587)
-
-
 * root_group provider not implemented for Windows (OHAI-491)
 * `Ohai::Exceptions::AttributeNotFound` errors in Chef's ohai resource
 * Be reluctant to call something an LXC host (OHAI-573)
@@ -220,4 +264,4 @@
 * Normalize cloud attributes for Azure (OHAI-554)
 * Capture FreeBSD osreldate for comparison purposes (OHAI-557)
 
-http://www.getchef.com/blog/2014/04/09/release-chef-client-11-12-2/
+http://www.chef.io/blog/2014/04/09/release-chef-client-11-12-2/
